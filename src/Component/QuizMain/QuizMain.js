@@ -6,13 +6,11 @@ const QuizMain = () => {
   // state variables
   let [quizData, setQuizData] = useState([]);
   let [loading, setLoading] = useState(true);
-  let [error,setError] = useState("");
   let [currentIdx,setCurrentIdx] = useState(0);
   let [counter,setCounter] = useState(0);
 
   // fetch data from api
   useEffect(() => {
-    // ${apiUrl}?apiKey=${apiKey}&limit=5
     try {
       let fetchData = async () => {
         let apikey  = "cR2CgjUoDf82VGQZnsn5qKstSCYbjkMvZLZ1gDkw" 
@@ -22,18 +20,9 @@ const QuizMain = () => {
         response = await response.json();
         setQuizData(response);
         setLoading(false);
-        console.log(response);
-        // if (response.response_code === 0) {
-        //   setLoading(false);
-        //   setQuizData(response);
-        // } else {
-        //   setLoading(false);
-        //   setQuizData([]);
-        // }
       };
       fetchData();
-    } catch (error) {
-        
+    } catch (error) {  
       console.log("Error", error);
     }
   }, []);
@@ -55,14 +44,19 @@ let onClickCheckAnswer = (key,idx)=>{
     }
 }
 
+// goNextQuestion when time is complete
+let goNextQuestion = ()=>{
+    setCurrentIdx(preVal=>preVal+1);
+}
+
+
   return (
     <div className="quizmain-container">
       {loading ? (
         <p>Loading...</p>
       ) : currentIdx <= 9 ?
         (quizData.map((question, idx) => {
-        
-                return(idx == currentIdx && <QuizCard key={idx} {...question} questionNum={idx+1} onClickOption={onClickCheckAnswer} onClickSkip={onClickChangeQuestion}></QuizCard> );
+                return(idx == currentIdx && <QuizCard key={idx} {...question} questionNum={idx+1} onClickOption={onClickCheckAnswer} onClickSkip={onClickChangeQuestion} goNextQuestion={goNextQuestion}></QuizCard> );
                     
         })) : (<div className="quizmain-end"><h1>Quiz Ended</h1>
         <p>Your Score : {counter}/10</p>

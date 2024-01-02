@@ -1,9 +1,6 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
 const QuizCard = (props) => {
-
-    
-
     // onClickBtn
     let onClickBtn = (key,idx)=>{
         props.onClickOption(key,idx);
@@ -12,6 +9,22 @@ const QuizCard = (props) => {
     let onClickSkip = ()=>{
         props.onClickSkip();
     }
+
+    //useefect timer for every question
+    let [timer,setTimer] = useState(10);
+    useEffect(()=>{
+        let interval = setInterval(()=>{
+            setTimer((preVal) =>{
+                let updatedVal = preVal-1;
+                if(updatedVal == 0){
+                    props.goNextQuestion();
+                    clearInterval(interval);
+                }
+                return updatedVal;
+            });
+        },800);
+    },[])
+
     
   return (
     <div className='quizcard-container'>
@@ -28,7 +41,7 @@ const QuizCard = (props) => {
             })
         }
       </ul>
-        <p>Time Left: 0 seconds</p>
+        <p>Time Left: {timer} seconds</p>
         <button onClick={onClickSkip}>Skip Question</button>
     </div>
   )
