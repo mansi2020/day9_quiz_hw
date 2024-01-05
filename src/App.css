@@ -1,5 +1,49 @@
-*{
-  margin:0;
-  padding:0;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+/* body */
+body {
+  background: linear-gradient(to right, rgb(56, 14, 151), rgb(107, 66, 194));
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+}
+
+/* app content */
+.app-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.app-content img {
+  width: 50%;
+}
+.app-content-sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+.app-content-sub > h1 {
+  font-size: 3rem;
+  text-align: center;
+  color: #fff;
+}
+.app-content-sub > button {
+  width: 50%;
+  background-color: rgb(237, 221, 72);
+  padding: 12px 0;
+  border-radius: 1rem;
+  border: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.4s;
+}
+.app-content-sub > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 2px 2px 20px rgb(230, 230, 230);
 }
